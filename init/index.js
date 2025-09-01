@@ -1,8 +1,13 @@
 const mongoose = require("mongoose");
 const initData = require("./data.js");
 const Listing = require("../models/listing.js");
+if(process.env.NODE_ENV != "production"){  //development phase m sirf require ho otherwise log hmare secret dekh skte hagr logo ko hmara project accessible hua to
+  require('dotenv').config();    // to access the env file in our project
+}
 
-const MONGO_URL = "mongodb://127.0.0.1:27017/wanderlust";
+
+
+const dbUrl = process.env.ATLASDB_URL;
 
 main()
   .then(() => {
@@ -13,7 +18,7 @@ main()
   });
 
 async function main() {
-  await mongoose.connect(MONGO_URL);
+  await mongoose.connect(dbUrl);
 }
 
 const initDB = async () => {
