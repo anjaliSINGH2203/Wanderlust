@@ -62,7 +62,7 @@ const store = MongoStore.create({
   touchAfter: 24 * 3600,
 });
 
-store.on("error", () =>{
+store.on("error", (err) =>{
   console.log("ERROR in mongo SESSION STORE", err);
 });
 
@@ -88,8 +88,21 @@ app.get("/", (req, res) => {
 //   res.send("Hi, I am root");
 // });
 
+
+
 app.use(session(sessionOptions));
+app.use(passport.initialize());
+app.use(passport.session());
 app.use(flash());
+
+
+passport.use(new LocalStrategy(User.authenticate()));
+
+passport.serializeUser(User.serializeUser());    //to serialize users into the session
+passport.deserializeUser(User.deserializeUser());  //to deserialize users from the session
+
+
+
 
 // Make currUser available in all templates
 app.use((req, res, next) => {
@@ -101,15 +114,7 @@ app.use((req, res, next) => {
 
 
 
-app.use(passport.initialize());
-app.use(passport.session());
-passport.use(new LocalStrategy(User.authenticate()));
-
-passport.serializeUser(User.serializeUser());    //to serialize users into the session
-passport.deserializeUser(User.deserializeUser());  //to deserialize users from the session
-
-
-
+/*
 app.use((req,res, next) => {
   res.locals.success = req.flash("success"); // kuch bhi update create delete etc successfully ho jat ah ato
   res.locals.error = req.flash("error");   // agr koi listing ka link daal rhe h aur vo exist hi nhi krti to error msg
