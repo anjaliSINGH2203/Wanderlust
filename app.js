@@ -45,6 +45,8 @@ async function main() {
   await mongoose.connect(dbUrl);
 }
 
+
+
 app.set("view engine", "ejs");
 app.set("views", path.join(__dirname, "views"));
 app.use(express.urlencoded({ extended: true }));
@@ -88,6 +90,15 @@ app.get("/", (req, res) => {
 
 app.use(session(sessionOptions));
 app.use(flash());
+
+// Make currUser available in all templates
+app.use((req, res, next) => {
+    res.locals.currUser = req.user;   // agar user logged in hai
+    res.locals.success = req.flash("success");
+    res.locals.error = req.flash("error");
+    next();
+});
+
 
 
 app.use(passport.initialize());
