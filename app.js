@@ -79,15 +79,6 @@ const sessionOptions = {
 };
 
 
-app.get("/", (req, res) => {
-  res.render("home");
-});
-
-
-// app.get("/", (req, res) => {
-//   res.send("Hi, I am root");
-// });
-
 
 
 app.use(session(sessionOptions));
@@ -103,14 +94,30 @@ passport.deserializeUser(User.deserializeUser());  //to deserialize users from t
 
 
 
-
 // Make currUser available in all templates
 app.use((req, res, next) => {
     res.locals.currUser = req.user;   // agar user logged in hai
+    console.log(" Current User in res.locals:", req.user); 
     res.locals.success = req.flash("success");
     res.locals.error = req.flash("error");
     next();
 });
+
+
+
+
+app.get("/", (req, res) => {
+  res.render("home");
+});
+
+
+// app.get("/", (req, res) => {
+//   res.send("Hi, I am root");
+// });
+
+
+
+
 
 
 
