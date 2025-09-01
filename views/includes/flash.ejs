@@ -1,0 +1,16 @@
+
+<% if(success && success.length){  %>
+<div class="alert alert-success alert-dismissible fade show col-6 offset-3" role="alert">
+    <%= success %>
+    <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+</div>
+<% } %>
+
+
+
+<% if(error && error.length){  %><!-- agr error ka length h kuch tbhi show kre otherwise ye pg p hr wqt show krta rahega  same upr success vale m bhi yhi h-->
+<div class="alert alert-danger alert-dismissible fade show col-6 offset-3" role="alert">
+    <%= error %>
+    <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+</div>
+<% } %>
