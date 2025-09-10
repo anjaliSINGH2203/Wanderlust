@@ -14,7 +14,8 @@
       alt="listing-image">
 
       <div class="card-body">
-      <p class="card-text">Owned By: <i><%= listing.owner.username %></i></p>
+      Owned By:
+  <i><%= listing.owner && listing.owner.username ? listing.owner.username : "No owner" %></i>
         <p class="card-text"><%= listing.description %></p> 
         <p class="card-text">&#8377; <%= listing.price %></p>
         <p class="card-text"><%= listing.location %> </p>
